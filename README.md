@@ -18,7 +18,7 @@
 - trunc(a): Cắt và giữ lại 32bit LSB từ 64bit
 - floor(a): Làm tròn xuống số nguyên gần nhất < a
 - ceil(a): Làm tròn lên số nguyên gần nhất > a
-- extract(a, i): Chia chuỗi a thành các block bằng nhau 32bit và đánh số thứ tự cho từng block, khi ta lấy $i^th$ từ a, nghĩa là ta lấy block thứ $i^th$ từ chuỗi ban đầu
+- extract(a, i): Chia chuỗi a thành các block bằng nhau 32bit và đánh số thứ tự cho từng block, khi ta lấy $i^(th)$ từ a, nghĩa là ta lấy block thứ $i^th$ từ chuỗi ban đầu
 - |A|: Số lượng phần tử trong A
 - LE32(a): 32bit kiểu số nguyên được chuyển sang dạng byte string tuân theo Little Edian
 - LE64(a): 64bit kiểu số nguyên được chuyển sang dạng byte string tuân theo Little Edian
