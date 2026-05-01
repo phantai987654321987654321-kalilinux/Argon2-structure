@@ -36,7 +36,7 @@
 	- Secondary Inputs/Parameters:
 		+ Mức độ song song "p" (Degree of parallelism) xác định có bao nhiêu luồng(chain) độc lập được sử dụng tính toán khi chạy phải có giá trị là số nguyên từ 1 tới $2^24 - 1$. Cần lưu ý một điều là nó phải mang tính chất đồng bộ với nhau (synchronizing) nghĩa là phải trao đổi kết quả rồi mới tính toán tiếp
 		+ Tag Lenght "T": `Tag` chính là Hashed Password. Chiều dài của Tag là số nguyên có giá trị từ 4 tới $2^32 - 1$
-		+ Kích thước của bộ nhớ "m" được xác định là 1 số nguyên của `kibibytes` từ 8/*p tới $2^32 - 1$. Gọi m' là số block thực sự của m, được làm tròn xuống và là bội của 4*p
+		+ Kích thước của bộ nhớ "m" được xác định là 1 số nguyên của `kibibytes` từ 8\*p tới $2^32 - 1$. Gọi m' là số block thực sự của m, được làm tròn xuống và là bội của 4\*p
 			+ > `kibibytes` là một quy định bắt buộc để tránh lỗi tràn bộ nhớ do sự nhầm lẫn giữa quy chuẩn quốc tế(1KB=1000B trong hệ Dec) và cách hiểu thông thường(1KB=1024B trong hệ Bi). Do đó `kibibytes` định nghĩa là `kilobytes in Binary`, **1KB=1024B**.
 		+ Số lần quét "t": Điều chỉnh thời gian chạy độc lập với bộ nhớ(tức là quét đi quét lại dữ liệu nhưng không làm tăng RAM sử dụng). Giá trị của nó phải là số nguyên từ 1 tới $2^32 - 1$
 		+ Version number "v": Phải là byte 0x13
