@@ -18,12 +18,12 @@
 - trunc(a): Cắt và giữ lại 32bit LSB từ 64bit
 - floor(a): Làm tròn xuống số nguyên gần nhất < a
 - ceil(a): Làm tròn lên số nguyên gần nhất > a
-- extract(a, i): Chia chuỗi a thành các block bằng nhau 32bit và đánh số thứ tự cho từng block, khi ta lấy $i^(th)$ từ a, nghĩa là ta lấy block thứ $i^th$ từ chuỗi ban đầu
+- extract(a, i): Chia chuỗi a thành các block bằng nhau 32bit và đánh số thứ tự cho từng block, khi ta lấy $i^{th}$ từ a, nghĩa là ta lấy block thứ $i^{th}$ từ chuỗi ban đầu
 - |A|: Số lượng phần tử trong A
 - LE32(a): 32bit kiểu số nguyên được chuyển sang dạng byte string tuân theo Little Edian
 - LE64(a): 64bit kiểu số nguyên được chuyển sang dạng byte string tuân theo Little Edian
-- int32(s): Chuỗi s dài 32 bit được chuyển thành số nguyên ko âm(Non-Negative Integer) theo Little Edian
-- int64(s): Chuỗi s dài 64 bit được chuyển thành số nguyên ko âm(Non-Negative Integer) theo Little Edian
+- int32(s): Chuỗi s dài 32 bit được chuyển thành số nguyên không âm(Non-Negative Integer) theo Little Edian
+- int64(s): Chuỗi s dài 64 bit được chuyển thành số nguyên không âm(Non-Negative Integer) theo Little Edian
 - length(P): Độ dài byte của chuỗi P được biểu diễn ở dạng số nguyên 32bit
 - ZERO(P): Chuỗi P zero
 
@@ -31,17 +31,17 @@
 - Chia ra 2 phần input, Primary Inputs/Parameters và Secondary Inputs/Parameters
 	- Primary Inputs/Parameters: được cung cấp bởi users
 		+ Bao gồm 1 bản rõ tin nhắn P (Message Plaintext) và 1 chuỗi random ngẫu nhiên dùng 1 lần S (Nonce); P là Password và S là Salt
-		+ Chuỗi P không được vượt quá $2^32 - 1$ byte
-		+ Chuỗi S không được vượt quá $2^32 - 1$ byte, tuy nhiên cũng không nên quá ngắn, khuyến nghị từ 16byte. Salt nên khác nhau giữa các Inputs khác nhau
+		+ Chuỗi P không được vượt quá $2^{32} - 1$ byte
+		+ Chuỗi S không được vượt quá $2^{32} - 1$ byte, tuy nhiên cũng không nên quá ngắn, khuyến nghị từ 16byte. Salt nên khác nhau giữa các Inputs khác nhau
 	- Secondary Inputs/Parameters:
-		+ Mức độ song song "p" (Degree of parallelism) xác định có bao nhiêu luồng(chain) độc lập được sử dụng tính toán khi chạy phải có giá trị là số nguyên từ 1 tới $2^24 - 1$. Cần lưu ý một điều là nó phải mang tính chất đồng bộ với nhau (synchronizing) nghĩa là phải trao đổi kết quả rồi mới tính toán tiếp
-		+ Tag Lenght "T": `Tag` chính là Hashed Password. Chiều dài của Tag là số nguyên có giá trị từ 4 tới $2^32 - 1$
-		+ Kích thước của bộ nhớ "m" được xác định là 1 số nguyên của `kibibytes` từ 8\*p tới $2^32 - 1$. Gọi m' là số block thực sự của m, được làm tròn xuống và là bội của 4\*p
+		+ Mức độ song song "p" (Degree of parallelism) xác định có bao nhiêu luồng(chain) độc lập được sử dụng tính toán khi chạy phải có giá trị là số nguyên từ 1 tới $2^{24} - 1$. Cần lưu ý một điều là nó phải mang tính chất đồng bộ với nhau (synchronizing) nghĩa là phải trao đổi kết quả rồi mới tính toán tiếp
+		+ Tag Lenght "T": `Tag` chính là Hashed Password. Chiều dài của Tag là số nguyên có giá trị từ 4 tới $2^{32} - 1$
+		+ Kích thước của bộ nhớ "m" được xác định là 1 số nguyên của `kibibytes` từ 8\*p tới $2^{32} - 1$. Gọi `m'` là số block thực sự của m, được làm tròn xuống và là bội của 4\*p
 			+ > `kibibytes` là một quy định bắt buộc để tránh lỗi tràn bộ nhớ do sự nhầm lẫn giữa quy chuẩn quốc tế(1KB=1000B trong hệ Dec) và cách hiểu thông thường(1KB=1024B trong hệ Bi). Do đó `kibibytes` định nghĩa là `kilobytes in Binary`, **1KB=1024B**.
-		+ Số lần quét "t": Điều chỉnh thời gian chạy độc lập với bộ nhớ(tức là quét đi quét lại dữ liệu nhưng không làm tăng RAM sử dụng). Giá trị của nó phải là số nguyên từ 1 tới $2^32 - 1$
+		+ Số lần quét "t": Điều chỉnh thời gian chạy độc lập với bộ nhớ(tức là quét đi quét lại dữ liệu nhưng không làm tăng RAM sử dụng). Giá trị của nó phải là số nguyên từ 1 tới $2^{32} - 1$
 		+ Version number "v": Phải là byte 0x13
-		+ Secrect value "K" (Lưu ý không phải khoá bí mật): Có thể được thêm vào, khi được thêm vào, nó phải có độ dài byte không quá $2^32 - 1$
-		+ Dữ liệu "X": Có thể được thêm vào, khi được thêm vào, nó phải có độ dài byte không quá $2^32 - 1$
+		+ Secrect value "K" (Lưu ý không phải khoá bí mật): Có thể được thêm vào, khi được thêm vào, nó phải có độ dài byte không quá $2^{32} - 1$
+		+ Dữ liệu "X": Có thể được thêm vào, khi được thêm vào, nó phải có độ dài byte không quá $2^{32} - 1$
 		+ Tham số biến thể "y":<br>
 					'0' = Argon2d <br>
 					'1' = Argon2i <br>
@@ -50,8 +50,19 @@
 
 # 2. Operation
 - Sử dụng một hàm nén G (Compression Function) với 2 inputs(như đã đề cập ở trên), mỗi input dài 1024 byte cho ra output dài 1024 byte
-- Sử dụng một hàm băm $H^x()$, x là độ dài của output
+- Sử dụng một hàm băm $H^{x()}$ là dạng mở rộng của hàm băm BLAKE2b, với input là một string A và x là độ dài của output.
+- Thuật toán tạo $H_0$
+
+> $H_0$ = $H^{(64)}$(`p`, `T`, `m`, `t`, `v`, `y`, `length(P)`, `P`, `length(S)`, `length(K)`, `K`, `length(X)`, `X`) 
+
+> $H_0$ = $H^{(64)}$ ((LE32(p) || LE32(T) || LE32(m) || LE32(t) || LE32(v) || LE32(y) || LE32(length(P)) || P || LE32(length(S)) || S ||  LE32(length(K)) || K || LE32(length(X)) || X)
  
+- Tách bộ nhớ thành `m'` block có kích thước 1024byte:
 
+> `m'` = 4 \* p \* floor (m / 4p)
 
+- Với các luồng "p", bộ nhớ được tổ chức thành ma trận B[i][j] gồm các block có `P` hàng và các cột `q = m'/p`. B[i][0] và B[i][1] là luồng thứ nhất và luồng thứ 2
 
+> B[i][0] = $H'^{(1024)}$($H_0$ || LE32(0) || LE32(i))
+
+> B[i][1] = $H'^{(1024)}$($H_0$ || LE32(1) || LE32(i))
