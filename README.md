@@ -187,7 +187,7 @@
 - Đầu tiên tính **R**
 > R = X XOR Y
 - Sau đó R được sắp xếp lại thành ma trận 8x8 có kích thước mỗi phần tử $R_i$ là 16 byte:
-> $R{R_0, R_1,...R_{62}, R_{63}}$
+> $R(R_0, R_1,...R_{62}, R_{63})$
 - Đưa theo hàng của R mỗi 8 phần tử vào hàm P để cho ra ma trận có cùng kích thước Q
 
 > $(Q_0,  Q_1,  Q_2, ... ,  Q_7)$ <- $P(R_0,  R_1,  R_2, ... ,  R_7)$
