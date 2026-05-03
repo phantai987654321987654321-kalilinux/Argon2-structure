@@ -9,7 +9,7 @@
 	+ Argon2d: sử dụng phương thức truy cập dựa vào dữ liệu bộ nhớ(Data-Dependent Memory), phù hợp cho tiền điện tử(Cryptocurrencies) và bảo chứng điện tử(Proof of Work) trong Blockchain
 - Argon2id thể hiện khả năng của Argon2i ở nửa đầu quá trình duyệt bộ nhớ lần đầu tiên và Argon2d ở các giai đoạn còn lại
 
-#Notation and Conventions
+# Notation and Conventions
 - $E_f$: Biến E với chỉ số phụ f
 - g / h: Số nguyên g chia cho số nguyên h với kết quả là số hữu tỉ(Rational number)
 - I(j): Hàm I tại một thời điểm hoặc vị trí j
@@ -29,15 +29,15 @@
 
 # 1. Inputs/Ouputs
 - Chia ra 2 phần input, Primary Inputs/Parameters và Secondary Inputs/Parameters
-	- Primary Inputs/Parameters: được cung cấp bởi users
+	- **Primary Inputs/Parameters: được cung cấp bởi users**
 		+ Bao gồm 1 bản rõ tin nhắn P (Message Plaintext) và 1 chuỗi random ngẫu nhiên dùng 1 lần S (Nonce); P là Password và S là Salt
 		+ Chuỗi P không được vượt quá $2^{32} - 1$ byte
 		+ Chuỗi S không được vượt quá $2^{32} - 1$ byte, tuy nhiên cũng không nên quá ngắn, khuyến nghị từ 16byte. Salt nên khác nhau giữa các Inputs khác nhau
-	- Secondary Inputs/Parameters:
+	- **Secondary Inputs/Parameters:**
 		+ Mức độ song song **p** (Degree of parallelism) xác định có bao nhiêu luồng(chain) độc lập được sử dụng tính toán khi chạy phải có giá trị là số nguyên từ 1 tới $2^{24} - 1$. Cần lưu ý một điều là nó phải mang tính chất đồng bộ với nhau (synchronizing) nghĩa là phải trao đổi kết quả rồi mới tính toán tiếp
 		+ Tag Lenght **T**: `Tag` chính là Hashed Password. Chiều dài của Tag là số nguyên có giá trị từ 4 tới $2^{32} - 1$
 		+ Kích thước của bộ nhớ **m** được xác định là 1 số nguyên của `kibibytes` từ 8\*p tới $2^{32} - 1$. Gọi **m'** là số block thực sự của m, được làm tròn xuống và là bội của 4\*p
-			> `kibibytes` là một quy định bắt buộc để tránh lỗi tràn bộ nhớ do sự nhầm lẫn giữa quy chuẩn quốc tế(1KB=1000B trong hệ Dec) và cách hiểu thông thường(1KB=1024B trong hệ Bi). Do đó `kibibytes` định nghĩa là `kilobytes in Binary`, **1KB=1024B**.
+			> `kibibytes` là một quy định kí hiệu bắt buộc để tránh lỗi tràn bộ nhớ do sự nhầm lẫn giữa quy chuẩn quốc tế(1KB=1000B trong hệ Dec) và cách hiểu thông thường(1KB=1024B trong hệ Bi). Do đó `kibibytes` định nghĩa là `kilobytes in Binary`, **1KB=1024B**.
 		+ Số lần quét **t**: Điều chỉnh thời gian chạy độc lập với bộ nhớ(tức là quét đi quét lại dữ liệu nhưng không làm tăng RAM sử dụng). Giá trị của nó phải là số nguyên từ 1 tới $2^{32} - 1$
 		+ Version number **v8**: Phải là byte 0x13
 		+ Secrect value **K** (Lưu ý không phải khoá bí mật): Có thể được thêm vào, khi được thêm vào, nó phải có độ dài byte không quá $2^{32} - 1$
@@ -76,7 +76,7 @@
 > B[i][j] = G(B[i][j-1], B[l][z]) XOR B[i][j]	**t = t + 1, i[0,p), j[1,q)**;
 
 - **Lưu ý:** Việc tính toán sẽ được thực hiện đồng thời theo cả 2 chiều i và j, tuy nhiên, sẽ đợi nhau ở ranh giới `Slice`
-- Để thuận tiện cho việc tính toán các phép song song, ma trận của bộ nhớ được chia thành 4 Slice(SL = 4), giao điểm của một Slice và một luồng đươc gọi là phân đoạn(segment), có chiều dài q/SL
+- Để thuận tiện cho việc tính toán các phép song song, ma trận của bộ nhớ được chia thành 4 Slice(SL = 4), giao điểm của một Slice và một luồng được gọi là phân đoạn(segment), có chiều dài q/SL
 - Mỗi phân đoạn trong cùng Slice được tính toán song song nhưng không được tham chiếu lẫn nhau, ngoại trừ từ các Slice khác
 ```text
  slice 0    slice 1    slice 2    slice 3
@@ -116,7 +116,7 @@
             $V_r$ = $H^{(64)}(V_{r-1})$<br>
             $V_{r+1}$ = $H^{(T-32*r)}(V_{r})$<br>
             $H'^T(X) = W_1 || W_2 || ... || W_r || V_{r+1}$<br>
-</>
+> </>
 
 ## 2.2. Tính giá trị 32bit của $J_1$ và $J_2$
 ### 2.2.1. Argon2d
