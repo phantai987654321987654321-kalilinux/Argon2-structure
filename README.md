@@ -141,7 +141,7 @@
 > $G_1$ = G(ZERO(1024), **G(**ZERO(1024), Z || LE64(1) || ZERO(968) **)**),<br>
 	$G_2$ = G(ZERO(1024), **G(**ZERO(1024), Z || LE64(2) || ZERO(968) **)**),<br>
 	... ,<br>
-	$G_{q/(128\*SL}$ = G(ZERO(1024), **G(**ZERO(1024), Z || LE64(q/(128*SL)) || ZERO(968) **)**)
+	$G_{q/(128\*SL)}$ = G(ZERO(1024), **G(**ZERO(1024), Z || LE64(q/(128*SL)) || ZERO(968) **)**)
 
 > Có G = ($G_1$, $G_2$, ..., $G_{q/(128*SL}$). Mỗi G sẽ được chia thành **q/(SL)** số lượng X, và mỗi X có kích thước 8byte.<br>
 > Cho X = $X_1$ || $X_2$, khi đó $J_1 = int32(X_1)$ và $J_2 = int32(X_2)$
@@ -206,11 +206,11 @@
 
 ## 2.5. Permutation P
 - Như đã thấy ở mục 2.4, input của hàm P sẽ là 8 phần tử $R_i$ với mỗi phần tử có kích thước 8 byte
-- Sắp xếp lại 8 phần tử đó thành ma trận 4x4 word với kích thước 64bit và định nghĩa **$S_i = (v_{2*i+1} || v_{2*i})$**
-> $v_0  v_1  v_2  v_3$<br>
-> $v_4  v_5  v_6  v_7$<br>
-> $v_8  v_9 v_{10} v_{11}$<br>
-> $v_{12} v_{13} v_{14} v_{15}$<br>
+- Sắp xếp lại 8 phần tử đó thành ma trận 4x4 word với kích thước 64bit và định nghĩa $S_i = (v_{2*i+1} || v_{2*i})$
+> $v_0 | v_1 | v_2 | v_3$<br>
+> $v_4 | v_5 | v_6 | v_7$<br>
+> $v_8 | v_9 | v_{10} | v_{11}$<br>
+> $v_{12} | v_{13} | v_{14} | v_{15}$<br>
 
 - Sau đó đưa vào một hàm biến đổi **GB(a,b,c,d)** theo các quy tắc sau
 
