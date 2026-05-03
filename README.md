@@ -141,9 +141,9 @@
 > $G_1$ = G(ZERO(1024), **G(**ZERO(1024), Z || LE64(1) || ZERO(968) **)**),<br>
 	$G_2$ = G(ZERO(1024), **G(**ZERO(1024), Z || LE64(2) || ZERO(968) **)**),<br>
 	... ,<br>
-	$G_{q/(128*SL}$ = G(ZERO(1024), **G(**ZERO(1024), Z || LE64(q/(128*SL)) || ZERO(968) **)**)
+	$G_{q/(128\*SL}$ = G(ZERO(1024), **G(**ZERO(1024), Z || LE64(q/(128*SL)) || ZERO(968) **)**)
 
-> Có G = {$G_1$, $G_2$, ..., $G_{q/(128*SL}$}. Mỗi G sẽ được chia thành **q/(SL)** số lượng X, và mỗi X có kích thước 8byte.
+> Có G = ($G_1$, $G_2$, ..., $G_{q/(128*SL}$). Mỗi G sẽ được chia thành **q/(SL)** số lượng X, và mỗi X có kích thước 8byte.<br>
 > Cho X = $X_1$ || $X_2$, khi đó $J_1 = int32(X_1)$ và $J_2 = int32(X_2)$
 
 > **Lưu ý: Số lượng G được tính toán ở trên chỉ sử dụng cho một slice duy nhất ở bước nhảy hiện tại**
