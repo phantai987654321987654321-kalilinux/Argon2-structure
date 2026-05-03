@@ -105,7 +105,7 @@
 ## 2.1. Hàm băm mở rộng H'
 - Cho $V_i$ là block 64byte và $W_i$ là 32byte đầu của $V_i$
 
-> \<Pseudocode\>
+> \<Pseudocode\><br>
 	if T <= 64<br>
            $H'^T(A)$ = $H^T$(LE32(T)||A)<br>
        else<br>
@@ -149,17 +149,17 @@
 > **Lưu ý: Số lượng G được tính toán ở trên chỉ sử dụng cho một slice duy nhất ở bước nhảy hiện tại**
 
 ### 2.2.2. Argon2id
-- Nếu số lượt quét r là 0 và slice hiện tại là 0 hoặc 1, thì tính $J_1$ và $J_2$ như đối với Argon2i, ngược lại tính $J_1$ và $J_2$ như đối với Argon2d.
+- Nếu số giá trị lượt quét r là 0 và slice hiện tại là 0 hoặc 1, thì tính $J_1$ và $J_2$ như đối với Argon2i, còn lại tính $J_1$ và $J_2$ như đối với Argon2d.
 
 ## 2.3. Ánh xạ $J_1$ và $J_2$ vào chỉ số `l` và `z` của Block
-- Giá trị của `l` sẽ là `l = $J_2$ mod p`. Nó cho biết chỉ số của luồng mà từ đó block sẽ được lấy
+- Giá trị của `l` sẽ là **l = $J_2$ mod p**. Nó cho biết chỉ số của luồng mà từ đó block sẽ được lấy
 - Cho tập hợp **W** chứa các chỉ số được tham chiếu theo các quy tắc:
 	- Nếu đây là lượt quét đầu tiên **t = 0**:
 		+ Nếu đang thực hiện tham chiếu cho `l` và lấy dữ liệu trên luồng hiện tại, W có thể tham chiếu đến tất cả segment đã tính toán, kể cả trong Slice đã được tính toán và đang tính toán, ngoại trừ B[i][j − 1].
 		+ Nếu đang thực hiện tham chiếu cho `l` và lấy dữ liệu trên luồng khác, thì W không được tham chiếu lên cùng một Slice ở lane khác, và các Slice được phép tham chiếu nằm trong phạm vi tính từ Slice hiện tại cho tới các Slice đã tính toán là **SL - 1 = 3**
 > **Ví dụ: Chúng ta có 4 luồng và 4 slice đánh số từ 0 -> 3**
 
-> Tại t = 0, nếu đang đứng ở Slice 0 của lane 2, ta được phép tham chiếu trên slice 0 của lane 2 ở các segment đã được tính toán. Nếu ta tham chiếu lên lane khác, thì vùng nhớ được tham chiếu sẽ không được phép tham chiếu lên bất kì lane nào cả(vì tất cả lane khác chỉ mới đang tính toán ở slice 0)
+> Tại t = 0, nếu đang đứng ở Slice 0 của lane 2, ta được phép tham chiếu trên slice 0 của lane 2 ở các segment đã được tính toán. Nếu ta tham chiếu lên lane khác, thì vùng nhớ được tham chiếu sẽ không được phép tham chiếu lên bất kì lane nào cả(vì tất cả lane khác chỉ mới đang tính toán ở slice 0)<br>
 > Tại t = 0, nếu đang đứng ở Slice 1 của lane 2, ta được phép tham chiếu trên slice 0 của lane 2, và slice 1 của lane 2 ở các segment đã được tính toán. Nếu ta tham chiếu lên lane khác, thì vùng nhớ được tham chiếu sẽ bao gồm cả 4 lane(vì tất cả 4 lane đều tính toán xong Slice 0, tuy nhiên slice 2, 3 chưa được tính nên cũng không được phép tham chiếu), nhưng không được phép tham chiếu lên slice 1 của cả 4 lane
 
 	- Nếu đây là lượt quét **t = t + 1**:
@@ -167,7 +167,7 @@
 		+ Nếu đang thực hiện tham chiếu cho `l` và lấy dữ liệu trên luồng khác, thì W không được tham chiếu lên cùng một Slice ở lane khác, và các Slice được phép tham chiếu nằm trong phạm vi tính từ Slice hiện tại cho tới các Slice đã tính toán là **SL - 1 = 3** (**Kể cả ở lượt quét trước đó t = t**)
 > **Ví dụ: Chúng ta có 4 luồng và 4 slice đánh số từ 0 -> 3**
 
-> Tại t = 2, nếu đang đứng ở Slice 0 của lane 2, ta được phép tham chiếu trên slice 0 của lane 2 ở các segment đã được tính toán(**nhưng không được tham chiếu segment đã tính toán ở lượt quét trước đó t = 1**). Nếu ta tham chiếu lên lane khác, thì vùng nhớ được tham chiếu sẽ bao gồm slice 1, 2, 3 của tất cả lane còn lại, nhưng không được tham chiếu lên slice 0(**Kể cả ở lượt quét trước đó t = 1**)
+> Tại t = 2, nếu đang đứng ở Slice 0 của lane 2, ta được phép tham chiếu trên slice 0 của lane 2 ở các segment đã được tính toán(**nhưng không được tham chiếu segment đã tính toán ở lượt quét trước đó t = 1**). Nếu ta tham chiếu lên lane khác, thì vùng nhớ được tham chiếu sẽ bao gồm slice 1, 2, 3 của tất cả lane còn lại, nhưng không được tham chiếu lên slice 0(**Kể cả ở lượt quét trước đó t = 1**)<br>
 > Tại t = 2, nếu đang đứng ở Slice 1 của lane 2, ta được phép tham chiếu trên slice 0 của lane 2(**Kể cả ở lượt quét trước đó t = 1**), slice 1 của lane 2 ở các segment đã được tính toán, và slice 2, 3 của lane 2 ở lượt quét t = 1. Nếu ta tham chiếu lên lane khác, thì vùng nhớ được tham chiếu sẽ bao gồm slice 0 cả 4 lane(**Kể cả ở lượt quét trước đó t = 1**), và bao gồm slice 2, 3 cả 4 lane ở lượt quét trước đó t = 1, nhưng không được phép tham chiếu lên slice 1 của cả 4 lane(**Kể cả ở lượt quét trước đó t = 1**)
 
 - Sau đó, lấy một một từ W với sự phân bố không đồng đều trên [0, |W|) bằng cách sử dụng phép ánh xạ để tính ra giá trị `zz` chính là chỉ số `z`:
@@ -176,11 +176,11 @@
 
 - Để tránh tính toán số thực dấu phẩy động, sử dụng phương pháp xấp xỉ:
 
-> <Pseudocode>
+> \<Pseudocode\><br>
 >	x = ${J_1^2} / $2^{(32)}$<br>
 	y = (|W| * x) / $2^{(32)}$<br>
 	zz = |W| - 1 - y
-> </>
+> \</\>
 
 ## 2.4. Compression Function G
 - Hàm này dựa trên một hàm hoán vị P của BLAKE2b, với 2 inputs là X và Y có kích thước 1024byte
