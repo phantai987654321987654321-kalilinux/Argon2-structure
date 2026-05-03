@@ -105,7 +105,7 @@
 ## 2.1. Hàm băm mở rộng H'
 - Cho $V_i$ là block 64byte và $W_i$ là 32byte đầu của $V_i$
 
-> <Pseudocode>
+> \<Pseudocode\>
 	if T <= 64
             $H'^T(A)$ = $H^T$(LE32(T)||A)
         else
@@ -116,7 +116,7 @@
             $V_r$ = $H^{(64)}(V_{r-1})$
             $V_{r+1}$ = $H^{(T-32*r)}(V_{r})$
             $H'^T(X) = W_1 || W_2 || ... || W_r || V_{r+1}$
-> </>
+> \</\>
 
 ## 2.2. Tính giá trị 32bit của $J_1$ và $J_2$
 ### 2.2.1. Argon2d
