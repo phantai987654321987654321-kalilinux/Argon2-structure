@@ -106,16 +106,16 @@
 - Cho $V_i$ là block 64byte và $W_i$ là 32byte đầu của $V_i$
 
 > \<Pseudocode\>
->	if T <= 64
->           $H'^T(A)$ = $H^T$(LE32(T)||A)
->       else
->           r = ceil(T/32)-2
->           $V_1$ = $H^{(64)}$(LE32(T)||A)
->           $V_2$ = $H^{(64)}(V_1)$
->           ...
->           $V_r$ = $H^{(64)}(V_{r-1})$
->           $V_{r+1}$ = $H^{(T-32*r)}(V_{r})$
->           $H'^T(X) = W_1 || W_2 || ... || W_r || V_{r+1}$
+	if T <= 64<br>
+           $H'^T(A)$ = $H^T$(LE32(T)||A)<br>
+       else<br>
+           r = ceil(T/32)-2<br>
+           $V_1$ = $H^{(64)}$(LE32(T)||A)<br>
+           $V_2$ = $H^{(64)}(V_1)$<br>
+           ...<br>
+           $V_r$ = $H^{(64)}(V_{r-1})$<br>
+           $V_{r+1}$ = $H^{(T-32*r)}(V_{r})$<br>
+           $H'^T(X) = W_1 || W_2 || ... || W_r || V_{r+1}$<br>
 > \</\>
 
 ## 2.2. Tính giá trị 32bit của $J_1$ và $J_2$
