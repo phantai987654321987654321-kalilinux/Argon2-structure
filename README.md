@@ -190,16 +190,16 @@
 > $R(R_0, R_1,...R_{62}, R_{63})$
 - Đưa theo hàng của R mỗi 8 phần tử vào hàm P để cho ra ma trận có cùng kích thước Q
 
-> $(Q_0,  Q_1,  Q_2, ... ,  Q_7)$ <- $P(R_0,  R_1,  R_2, ... ,  R_7)$
-> $(Q_8,  Q_9, Q_{10}, ... , Q_{15})$ <- $P(R_8,  R_9, R_{10}, ... , R_{15})$
->                               ...
-> $(Q_{56}, Q_{57}, Q_{58}, ... , Q_{63})$ <- $P(R_{56}, R_{57}, R_{58}, ... , R_{63})$
+> $(Q_0,  Q_1,  Q_2, ... ,  Q_7)$ <- $P(R_0,  R_1,  R_2, ... ,  R_7)$<br>
+> $(Q_8,  Q_9, Q_{10}, ... , Q_{15})$ <- $P(R_8,  R_9, R_{10}, ... , R_{15})$<br>
+>                               ...<br>
+> $(Q_{56}, Q_{57}, Q_{58}, ... , Q_{63})$ <- $P(R_{56}, R_{57}, R_{58}, ... , R_{63})$<br>
 
 - Tiếp tục đưa Q vào P một lần nữa nhưng theo hàng dọc để cho ra ma trận có cùng kích thước Z
-> $(Z_0,  Z_8, Z_{16}, ... , Z_{56})$ <- $P(Q_0,  Q_8, Q_{16}, ... , Q_{56})$
-> $(Z_1,  Z_9, Z_{17}, ... , Z_{57})$ <- $P(Q_1,  Q_9, Q_{17}, ... , Q_{57})$
->                              ...
-> $(Z_7, Z_{15}, Z_{23}, ... , Z_{63})$ <- $P(Q_7, Q_{15}, Q_{23}, ... , Q_{63})$
+> $(Z_0,  Z_8, Z_{16}, ... , Z_{56})$ <- $P(Q_0,  Q_8, Q_{16}, ... , Q_{56})$<br>
+> $(Z_1,  Z_9, Z_{17}, ... , Z_{57})$ <- $P(Q_1,  Q_9, Q_{17}, ... , Q_{57})$<br>
+>                              ...<br>
+> $(Z_7, Z_{15}, Z_{23}, ... , Z_{63})$ <- $P(Q_7, Q_{15}, Q_{23}, ... , Q_{63})$<br>
 
 - Cuối cùng sẽ thực hiện lấy XOR của Z và R
 > G = Z XOR G
@@ -207,35 +207,35 @@
 ## 2.5. Permutation P
 - Như đã thấy ở mục 2.4, input của hàm P sẽ là 8 phần tử $R_i$ với mỗi phần tử có kích thước 8 byte
 - Sắp xếp lại 8 phần tử đó thành ma trận 4x4 word với kích thước 64bit và định nghĩa **$S_i = (v_{2*i+1} || v_{2*i})$**
-> $v_0  v_1  v_2  v_3$
-> $v_4  v_5  v_6  v_7$
-> $v_8  v_9 v_{10} v_{11}$
-> $v_{12} v_{13} v_{14} v_{15}$
+> $v_0  v_1  v_2  v_3$<br>
+> $v_4  v_5  v_6  v_7$<br>
+> $v_8  v_9 v_{10} v_{11}$<br>
+> $v_{12} v_{13} v_{14} v_{15}$<br>
 
 - Sau đó đưa vào một hàm biến đổi **GB(a,b,c,d)** theo các quy tắc sau
 
->	$GB(v_0, v_4,  v_8, v_{12})$
->       $GB(v_1, v_5,  v_9, v_{13})$
->       $GB(v_2, v_6, v_{10}, v_{14})$
->       $GB(v_3, v_7, v_{11}, v_{15})$
+>	$GB(v_0, v_4,  v_8, v_{12})$<br>
+>       $GB(v_1, v_5,  v_9, v_{13})$<br>
+>       $GB(v_2, v_6, v_{10}, v_{14})$<br>
+>       $GB(v_3, v_7, v_{11}, v_{15})$<br>
 
->       $GB(v_0, v_5, v_{10}, v_{15})$
->       $GB(v_1, v_6, v_{11}, v_{12})$
->       $GB(v_2, v_7,  v_8, v_{13})$
->       $GB(v_3, v_4,  v_9, v_{14})$
+>       $GB(v_0, v_5, v_{10}, v_{15})$<br>
+>       $GB(v_1, v_6, v_{11}, v_{12})$<br>
+>       $GB(v_2, v_7,  v_8, v_{13})$<br>
+>       $GB(v_3, v_4,  v_9, v_{14})$<br>
 
 - Thuật toán của hàm GB
-> <Pseudocode>
-> a = (a + b + 2 * trunc(a) * trunc(b)) mod $2^{(64)}$
-> d = (d XOR a) >>> 32
-> c = (c + d + 2 * trunc(c) * trunc(d)) mod $2^{(64)}$
-> b = (b XOR c) >>> 24
+> \<Pseudocode\>
+> a = (a + b + 2 * trunc(a) * trunc(b)) mod $2^{(64)}$<br>
+> d = (d XOR a) >>> 32<br>
+> c = (c + d + 2 * trunc(c) * trunc(d)) mod $2^{(64)}$<br>
+> b = (b XOR c) >>> 24<br>
 
-> a = (a + b + 2 * trunc(a) * trunc(b)) mod $2^{(64)}$
-> d = (d XOR a) >>> 16
-> c = (c + d + 2 * trunc(c) * trunc(d)) mod $2^{(64)}$
-> b = (b XOR c) >>> 63
-> </>
+> a = (a + b + 2 * trunc(a) * trunc(b)) mod $2^{(64)}$<br>
+> d = (d XOR a) >>> 16<br>
+> c = (c + d + 2 * trunc(c) * trunc(d)) mod $2^{(64)}$<br>
+> b = (b XOR c) >>> 63<br>
+> \</\>
 
 # 3. Argon2ds
 - Là một phiên bản mới lạ với đa số các dev vì ít khi được nhắc tới, và không được khuyến nghị trong các tiêu chuẩn mật mã:
