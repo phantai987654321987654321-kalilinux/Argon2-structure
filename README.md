@@ -206,7 +206,7 @@
 
 ## 2.5. Permutation P
 - Như đã thấy ở mục 2.4, input của hàm P sẽ là 8 phần tử $R_i$ với mỗi phần tử có kích thước 8 byte
-- Sắp xếp lại 8 phần tử đó thành ma trận 4x4 word với kích thước 64bit và định nghĩa $S_i = (v_{2*i+1} || v_{2*i})$
+- Sắp xếp lại 8 phần tử đó thành ma trận 4x4 word với kích thước 64bit và định nghĩa **$S_i = (v_{2\*i+1} || v_{2\*i})$**
 > $v_0 | v_1 | v_2 | v_3$<br>
 > $v_4 | v_5 | v_6 | v_7$<br>
 > $v_8 | v_9 | v_{10} | v_{11}$<br>
