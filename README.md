@@ -243,27 +243,27 @@
 	+ Việc sử dụng hàm S-box chỉ cho riêng một biến thể làm tốn thêm không gian khi xây dựng hàm Argon2
 - Sử dụng tham số y = 4 để chỉ ra biến thể Argon2ds
 - Sử dụng một hàm E là một chain của các cách tính: đua vào hàm S-box, nhân, cộng
-> Pseudocode
-> W = LSB64(R0 ⊕ R63);
-> Z0+ = E(W);
-> Z63+ = E(W) << 32:
-> </>
+> \<Pseudocode\><br>
+> W = LSB64(R0 ⊕ R63);<br>
+> Z0+ = E(W);<br>
+> Z63+ = E(W) << 32:<br>
+> \</\><br>
 
 - Thuật toán của hàm E
-> <Pseudocode>
+> \<Pseudocode\><br>
 > Lặp lại 96 lần các đoạn code dưới rồi gáb W vào E(W): E(W) <- W
 > y S[W[8 : 0]];
 > z S[512 + W[40 : 32]];
 > W ((W[31 : 0] * W[63 : 32]) + y) + z
-> </>
+> \</\>
 
-> **Tất cả phép toán đều phải mod $2^{64}$. "*" là phép nhân 64bit. S[] là hàm S-box, ánh xạ các chỉ số 10bit thành các giá trị 64bit. W[i : j] là tập con các bit của W từ i đến j (bao gồm cả i và j).
+> **Tất cả phép toán đều phải mod $2^{64}$. "*" là phép nhân 64bit. S[] là hàm S-box, ánh xạ các chỉ số 10bit thành các giá trị 64bit. W[i : j] là tập con các bit của W từ i đến j (bao gồm cả i và j).**
 
 - Thuật toán tạo S-box
-> <Pseudocode>
-> Lấy block B[0][0] của input có kích thước 1024byte và đưa vào hàm nén **F** của BLAKE2b **(xem https://www.rfc-editor.org/rfc/rfc7693.html#section-3.2)
-> Tiến hành lặp lại việc đưa vào hàm F 16 lần. Nhưng cứ mỗi 2 lượt lặp, lấy toàn bộ 1024byte và trích xuất nó thành các giá trị có kích thước 64bit(tổng cộng 128 phần tử) đưa vào trong S-box
-> Khi kết thúc, S-box chứa 1024 phần tử tham chiếu(8 lần trích xuất * 128 phần tử)
+> \<Pseudocode\><br>
+> Lấy block B[0][0] của input có kích thước 1024byte và đưa vào hàm nén **F** của BLAKE2b **(xem https://www.rfc-editor.org/rfc/rfc7693.html#section-3.2)<br>
+> Tiến hành lặp lại việc đưa vào hàm F 16 lần. Nhưng cứ mỗi 2 lượt lặp, lấy toàn bộ 1024byte và trích xuất nó thành các giá trị có kích thước 64bit(tổng cộng 128 phần tử) đưa vào trong S-box<br>
+> Khi kết thúc, S-box chứa 1024 phần tử tham chiếu(8 lần trích xuất * 128 phần tử)<br>
 
 # 4. Khuyến nghị lựa chọn tham số
 - Theo khuyến nghị tiêu chuẩn, đồng thời cũng tối ưu cho bộ nhớ
