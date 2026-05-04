@@ -141,9 +141,9 @@
 > $G_1$ = G(ZERO(1024), **G(**ZERO(1024), Z || LE64(1) || ZERO(968) **)**),<br>
 	$G_2$ = G(ZERO(1024), **G(**ZERO(1024), Z || LE64(2) || ZERO(968) **)**),<br>
 	... ,<br>
-	$G_{q/(128\*SL)}$ = G(ZERO(1024), **G(**ZERO(1024), Z || LE64(q/(128*SL)) || ZERO(968) **)**)
+	$G_{q/(128\*SL)}$ = G(ZERO(1024), **G(**ZERO(1024), Z || LE64(q/(128\*SL)) || ZERO(968) **)**)
 
-> Có G = ($G_1$, $G_2$, ..., $G_{q/(128*SL}$). Mỗi G sẽ được chia thành **q/(SL)** số lượng X, và mỗi X có kích thước 8byte.<br>
+> Có G = ($G_1$, $G_2$, ..., $G_{q/(128\*SL)}$). Mỗi G sẽ được chia thành **q/(SL)** số lượng X, và mỗi X có kích thước 8byte.<br>
 > Cho X = $X_1$ || $X_2$, khi đó $J_1 = int32(X_1)$ và $J_2 = int32(X_2)$
 
 > **Lưu ý: Số lượng G được tính toán ở trên chỉ sử dụng cho một slice duy nhất ở bước nhảy hiện tại**
@@ -170,7 +170,7 @@
 > Tại t = 2, nếu đang đứng ở Slice 0 của lane 2, ta được phép tham chiếu trên slice 0 của lane 2 ở các segment đã được tính toán(**nhưng không được tham chiếu segment đã tính toán ở lượt quét trước đó t = 1**). Nếu ta tham chiếu lên lane khác, thì vùng nhớ được tham chiếu sẽ bao gồm slice 1, 2, 3 của tất cả lane còn lại, nhưng không được tham chiếu lên slice 0(**Kể cả ở lượt quét trước đó t = 1**)<br>
 > Tại t = 2, nếu đang đứng ở Slice 1 của lane 2, ta được phép tham chiếu trên slice 0 của lane 2(**Kể cả ở lượt quét trước đó t = 1**), slice 1 của lane 2 ở các segment đã được tính toán, và slice 2, 3 của lane 2 ở lượt quét t = 1. Nếu ta tham chiếu lên lane khác, thì vùng nhớ được tham chiếu sẽ bao gồm slice 0 cả 4 lane(**Kể cả ở lượt quét trước đó t = 1**), và bao gồm slice 2, 3 cả 4 lane ở lượt quét trước đó t = 1, nhưng không được phép tham chiếu lên slice 1 của cả 4 lane(**Kể cả ở lượt quét trước đó t = 1**)
 
-- Sau đó, lấy một một từ W với sự phân bố không đồng đều trên [0, |W|) bằng cách sử dụng phép ánh xạ để tính ra giá trị `zz` chính là chỉ số `z`:
+- Sau đó, lấy một một khối từ W với sự phân bố không đồng đều trên [0, |W|) bằng cách sử dụng phép ánh xạ để tính ra giá trị `zz` chính là chỉ số `z`:
 
 > $J_1$ -> |W|(1 - $J_1^2$ / $2^{(64)}$)
 
@@ -214,9 +214,7 @@
 
 - Sau đó đưa vào một hàm biến đổi **GB(a,b,c,d)** theo các quy tắc sau
 
->	$$
-GB(v_0, v_4, v_8, v_{12})
-$$
+>	$GB(v_0, v_4, v_8, v_{12})$<br>
 >       $GB(v_1, v_5,  v_9, v_{13})$<br>
 >       $GB(v_2, v_6, v_{10}, v_{14})$<br>
 >       $GB(v_3, v_7, v_{11}, v_{15})$<br>
