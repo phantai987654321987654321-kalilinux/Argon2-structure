@@ -61,7 +61,7 @@
 
 > `m'` = 4 \* p \* floor (m / 4p)
 
-- Với các luồng "p", bộ nhớ được tổ chức thành ma trận **B[i][j]** gồm các block có `p` hàng và các cột `q = m'/p` và có sự khác nhau giữa các lần quét **t = 1** và các t sau. Đầu tiên tính **B[i][0]** và **B[i][1]**
+- Với các luồng "p", bộ nhớ được tổ chức thành ma trận **B[i][j]** gồm các block có `p` hàng và các cột `q = m'/p` và có sự khác nhau giữa các lần quét **t = 0** và các t sau. Đầu tiên tính **B[i][0]** và **B[i][1]**
 
 > B[i][0] = **$H'^{(1024)}$**($H_0$ || LE32(0) || LE32(i))
 
@@ -251,10 +251,10 @@
 
 - Thuật toán của hàm E
 > \<Pseudocode\><br>
-> Lặp lại 96 lần các đoạn code dưới rồi gáb W vào E(W): E(W) <- W
-> y S[W[8 : 0]];
-> z S[512 + W[40 : 32]];
-> W ((W[31 : 0] * W[63 : 32]) + y) + z
+> Lặp lại 96 lần các đoạn code dưới rồi gáb W vào E(W): E(W) <- W<br>
+> y S[W[8 : 0]];<br>
+> z S[512 + W[40 : 32]];<br>
+> W ((W[31 : 0] * W[63 : 32]) + y) + z<br>
 > \</\>
 
 > **Tất cả phép toán đều phải mod $2^{64}$. "*" là phép nhân 64bit. S[] là hàm S-box, ánh xạ các chỉ số 10bit thành các giá trị 64bit. W[i : j] là tập con các bit của W từ i đến j (bao gồm cả i và j).**
